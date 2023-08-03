@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="VRWork App Test Regression Suite" thread-count="3" verbose="2" parallel="tests">
+	
+	<listeners>
+		<listener class-name="com.qa.vrwork.listeners.ExtentReportListener" />
+	</listeners>
+
+	
+	<test name="TaskTest Page Test" >
+		<classes>
+			<class name="com.qa.vrwork.tests.TaskTest" />
+		</classes>
+	</test>
+	
+	 <test name="MyTaskCompelete Page Test">
+		<classes>
+			<class name="com.qa.vrwork.tests.MyTaskCompeleteTest" />
+		</classes>
+	</test>
+	 
+	 <test name="MyTaskCompelete Page Test2">
+		<classes>
+			<class name="com.qa.vrwork.tests.InvoiceTest" />
+		</classes>
+	</test>
+	
+</suite>	
