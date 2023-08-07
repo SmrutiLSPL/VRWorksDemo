@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="VRWork App Test Regression Suite" thread-count="3" verbose="2" parallel="tests">
+<suite name="VRWork App Test Regression Suite" thread-count="5" verbose="5" >
 	
 	<listeners>
 		<listener class-name="com.qa.vrwork.listeners.ExtentReportListener" />
@@ -20,10 +20,14 @@
 		</classes>
 	</test>
 	 
-	 <test name="MyTaskCompelete Page Test2">
+	 <test name="InvoiceBill">
 		<classes>
 			<class name="com.qa.vrwork.tests.InvoiceTest" />
 		</classes>
 	</test>
-	
+		 <test name="InvoicePostBill">
+		<classes>
+			<class name="com.qa.vrwork.tests.InvoicePostBillTest" />
+		</classes>
+	</test>
 </suite>	

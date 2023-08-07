@@ -1,45 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite thread-count="3" parallel="tests" name="Failed suite [VRWork App Test Regression Suite]" guice-stage="DEVELOPMENT" verbose="2">
+<suite name="Failed suite [VRWork App Test Regression Suite]" guice-stage="DEVELOPMENT" verbose="5">
   <listeners>
     <listener class-name="com.qa.vrwork.listeners.ExtentReportListener"/>
   </listeners>
-  <test thread-count="3" parallel="tests" name="MyTaskCompelete Page Test2(failed)" verbose="2">
+  <test thread-count="5" name="InvoiceBill(failed)" verbose="5">
     <classes>
       <class name="com.qa.vrwork.tests.InvoiceTest">
         <methods>
-          <include name="OpenInvoiceMenuTest"/>
           <include name="tearDown"/>
           <include name="login"/>
-          <include name="redirectOnInvoicePageTest"/>
-          <include name="getInvoiceTasknameTest" invocation-numbers="0 1"/>
+          <include name="getInvoiceTasknameTest" invocation-numbers="0"/>
           <include name="setup"/>
         </methods>
       </class> <!-- com.qa.vrwork.tests.InvoiceTest -->
     </classes>
-  </test> <!-- MyTaskCompelete Page Test2(failed) -->
-  <test thread-count="3" parallel="tests" name="MyTaskCompelete Page Test(failed)" verbose="2">
-    <classes>
-      <class name="com.qa.vrwork.tests.MyTaskCompeleteTest">
-        <methods>
-          <include name="tearDown"/>
-          <include name="mainmenuTest" invocation-numbers="0 1 2"/>
-          <include name="login"/>
-          <include name="setup"/>
-        </methods>
-      </class> <!-- com.qa.vrwork.tests.MyTaskCompeleteTest -->
-    </classes>
-  </test> <!-- MyTaskCompelete Page Test(failed) -->
-  <test thread-count="3" parallel="tests" name="TaskTest Page Test(failed)" verbose="2">
-    <classes>
-      <class name="com.qa.vrwork.tests.TaskTest">
-        <methods>
-          <include name="sidemenuTest" invocation-numbers="0"/>
-          <include name="tearDown"/>
-          <include name="login"/>
-          <include name="setup"/>
-        </methods>
-      </class> <!-- com.qa.vrwork.tests.TaskTest -->
-    </classes>
-  </test> <!-- TaskTest Page Test(failed) -->
+  </test> <!-- InvoiceBill(failed) -->
 </suite> <!-- Failed suite [VRWork App Test Regression Suite] -->

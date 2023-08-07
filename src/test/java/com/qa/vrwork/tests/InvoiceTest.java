@@ -38,7 +38,7 @@ public class InvoiceTest extends BasePage{
 		public Object[][] clickonTaskName() {
 			return new Object[][] {
 				
-				{"light issue","Bill Unit .BL121","1" },
+				{"light issue1","Bill Unit .BL121","1" },
 				{"fridge not working","Bill Damage Waiver","2"},
 			};
 		}
@@ -50,17 +50,21 @@ public class InvoiceTest extends BasePage{
 		invoicePage.selectStatus("Waiting Tech", 2);
 		
 		invoicePage.selectInvoiceTask(invoicetaskname);
-		Thread.sleep(20000);
+		
 		invoicePage.openInvoiceTo();
 		//By billTo=By.xpath("//input[contains(@value,'00')or contains(@value,'$')]/parent::span/preceding-sibling::span/select[@name='exp_notes']");
+		
+		//invoicePage.openInvoiceTo();
 		invoicePage.selectBillTo(billto,amount);
-		invoicePage.openInvoiceTo();
-		invoicePage.selectBillTo(billto,amount);
+		
 		invoicePage.sumOfBillToAmount();
 		invoicePage.vendorAmount();
+		Thread.sleep(5000);
 		invoicePage.ClickApprove();
+		Thread.sleep(5000);
 		invoicePage.closeBilltoScrn();
 	}
 	 
+	
 
 }

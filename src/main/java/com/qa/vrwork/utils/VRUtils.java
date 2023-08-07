@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -42,7 +43,11 @@ public class VRUtils {
 		return driver.findElement(locator);
 	}
 	
-	public void clickElementWhenReady(String value, int timeOut) {
+	public void clickMaintenanceMenuWhenReady(String value, int timeOut) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOut));
+		wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//ul[@class='nav contentmenu']/descendant::span[text()='"+value+"']")))).click();
+	}
+	public void clickAccountingMenuWhenReady(String value, int timeOut) {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOut));
 		wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//ul[@class='nav contentmenu']/descendant::span[text()='"+value+"']")))).click();
 	}
@@ -51,6 +56,12 @@ public class VRUtils {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOut));
 		wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
 		
+	}
+	
+	public void executeJS(String js) {
+//		String javascript = "document.querySelector('.invoiceamount').blur()";   
+		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;        
+		jsExecutor.executeScript(js);      
 	}
 	
 	public WebElement waitForElementVisible(By locator, int timeOut, int pollingTime) {
@@ -85,5 +96,7 @@ public class VRUtils {
 	public List<WebElement> getElements(By locator) {
 		return driver.findElements(locator);
 	}
+	
+	
 	
 }

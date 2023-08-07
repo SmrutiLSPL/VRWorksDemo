@@ -38,9 +38,7 @@ public class MyTasksPage {
 	}
 
 
-	public void clickonsidemenu() {
-		vrutil.clickElementWhenReady("Tasks", 10);
-	}
+	
 	
 	public void doSelectMyTask(String myTaskName)
 	{

@@ -6,6 +6,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
 import com.qa.vrwork.factory.DriverFactory;
+import com.qa.vrwork.pages.AccountPage;
 import com.qa.vrwork.pages.InvoicePage;
 import com.qa.vrwork.pages.LoginPage;
 import com.qa.vrwork.pages.MyTasksPage;
@@ -28,6 +29,7 @@ public class BasePage {
     protected TaskPage taskPage;
     protected MyTasksPage mytaskPage;
     protected InvoicePage invoicePage;
+    protected AccountPage accountPage;
     
     @BeforeTest
     public void setup() {
@@ -39,6 +41,7 @@ public class BasePage {
     taskPage=new TaskPage(driver);
     mytaskPage=new MyTasksPage(driver);
     invoicePage=new InvoicePage(driver);
+    accountPage=new AccountPage(driver);
     }
 
 

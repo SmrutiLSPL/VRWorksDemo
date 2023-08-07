@@ -27,9 +27,9 @@ public class TaskTest extends BasePage {
     @DataProvider
 	public Object[][] gettaksdata() {
 		return new Object[][] {
-			{"AC Not Working", ".BL121","Nishit Shah","Test Work"},
-			{"light issue", ".BL121","Nishit Shah","Test Work"},
-			{"fridge not working", ".BL121","Nishit Shah","Test Work"},
+			{"Broken Stair", ".BL121","Nishit Shah","Test Work"},
+			{"Broken light ", ".BL301","Nishit Shah","Test Work"},
+			{"Broken fridge ", ".MIST","Nishit Shah","Test Work"},
 		};
 	}
     @Test(dataProvider = "gettaksdata")

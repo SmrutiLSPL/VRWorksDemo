@@ -15,10 +15,10 @@ public class TaskPage {
 	private WebDriver driver;
 	private ElementUtil eleUtil;
 	private VRUtils vrutil;
-	WebDriverWait wait;
+
 
 	// 1. private By Locators - page locators
-	By MaintenanceMenu = By.xpath("//a[@id='mainmenua8 ']");
+	By MaintenanceMenu = By.xpath("//a[contains(@id,'mainmenua8')]");
 	By sideMenu = By.xpath("//ul[contains(@class,'contentmenu')]//li");
 	By newTask = By.xpath("//a[@class='btn btn-primary servicemodalanchor-popup']");
 	By unitbtn = By.xpath("//div[@class='main-wrapper thisactive']/div[@class='page-wrapper']/div[@class='page-content']/div[@id='newservice']/form[@class='popupform form-container']/div[@class='popupbody']/div[@class='popupbodycontent']/div[@class='unitandcontractor ']/div[1]/div[1]");
@@ -35,7 +35,7 @@ public class TaskPage {
 		this.driver = driver;
 		// eleUtil = new ElementUtil(driver);
 		vrutil = new VRUtils(driver);
-		wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		
 	}
 
 	// 3. public page actoin/Methos
@@ -50,7 +50,7 @@ public class TaskPage {
 	}
 
 	public void clickonsidemenu() {
-		vrutil.clickElementWhenReady("Tasks", 10);
+		vrutil.clickMaintenanceMenuWhenReady("Tasks", 10);
 	}
 
 	public String gettaskPageTitle() {

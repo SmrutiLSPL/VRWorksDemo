@@ -22,7 +22,7 @@ public class MyTaskCompeleteTest extends BasePage {
 		public Object[][] gettaksdata() {
 			return new Object[][] {
 				{"AC Not Working"},
-				{"light issue" },
+				{"light issue1" },
 				{"fridge not working"},
 			};
 		}

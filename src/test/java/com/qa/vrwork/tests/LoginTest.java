@@ -17,5 +17,5 @@ public class LoginTest extends BasePage {
     public void LoginTest() throws InterruptedException {
         String accPage = loginPage.VRLogin(prop.getProperty("username"), prop.getProperty("password"),prop.getProperty("selectView"));
         Assert.assertEquals(accPage,"VR WORKS - Dispatch");
-    }
+    }	
 }
