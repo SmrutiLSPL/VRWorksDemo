@@ -5,6 +5,7 @@ import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.qa.vrwork.utils.ElementUtil;
@@ -28,6 +29,7 @@ public class TaskPage {
 	By clickonYes=By.xpath("//label[normalize-space()='Yes']");
 	By clickonNo=By.xpath("//label[normalize-space()='No']");
 	By createTaskbtn=By.xpath("//a[@class='popup-submit']");
+	By close=By.xpath("//button[@type='button']//i[@class='fal fa-times']");
 	
 	// 2. public page Constructor
 
@@ -40,7 +42,19 @@ public class TaskPage {
 
 	// 3. public page actoin/Methos
 	public void clickmainmenu() {
-		vrutil.doClick(MaintenanceMenu);
+		boolean mainmenuClicked = false;
+
+        try {
+            // Click the Home menu only if it hasn't been clicked before
+            if (!mainmenuClicked) {
+                WebElement mainMenu = driver.findElement(MaintenanceMenu);
+                mainMenu.click();
+                mainmenuClicked = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+		
 	}
 
 	public String getmainPageTitle() {
@@ -50,6 +64,7 @@ public class TaskPage {
 	}
 
 	public void clickonsidemenu() {
+		
 		vrutil.clickMaintenanceMenuWhenReady("Tasks", 10);
 	}
 
@@ -101,6 +116,7 @@ public class TaskPage {
 	public void clickOnTask()
 	{
 		vrutil.doClick(createTaskbtn);
+		
 	}
 	public String validateServiceText() {
 		String serviceText = driver.findElement(By.xpath("(//div[normalize-space()='Did you read service notes?'])")).getText();
@@ -114,5 +130,8 @@ public class TaskPage {
 	public void clickonNo() {
 		vrutil.doClick(clickonNo);
 	}
-
+	public void clickClose()
+	{
+		vrutil.doClick(close);
+	}
 }

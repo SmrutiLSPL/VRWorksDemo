@@ -30,21 +30,19 @@ public class InvoicePostBillTest extends BasePage {
 		Assert.assertEquals(actulTitle, "Invoices");
 	}
 	
-	 @DataProvider
-		public Object[][] clickonPostTaskName() {
-			return new Object[][] {
-				
-				{"light issue1" },
-				{"fridge not working"},
-			};
-		}
+//	 @DataProvider
+//		public Object[][] clickonPostTaskName() {
+//			return (new TaskTest()).gettaksdata();
+//		}
 	  
-	@Test(dataProvider = "clickonPostTaskName")
-	public void getInvoiceTaskPostBillTest(String invoicetaskPostname) throws InterruptedException
+	@Test(dataProvider = "gettaksdata",dataProviderClass=TaskTest.class)
+	public void getInvoiceTaskPostBillTest(String taskname, String unitname, String vendorname, String description, String billto,
+			String amount) throws InterruptedException
 	{
 	
 		invoicePage.selectStatus("Pending bill", 2);
-		invoicePage.selectInvoiceTask(invoicetaskPostname);
+		Thread.sleep(4000);
+		invoicePage.selectInvoiceTask(taskname);
 		Thread.sleep(4000);
 		invoicePage.ClickOnPOst();
 		Thread.sleep(5000);

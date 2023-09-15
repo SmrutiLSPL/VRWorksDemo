@@ -1,25 +1,55 @@
 package com.qa.vrwork.tests;
 
-import java.time.Duration;
+import java.io.FileOutputStream;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.qa.vrwork.base.BasePage;
+import com.qa.vrwork.constants.AppConstants;
 
 public class InvoiceTest extends BasePage{
+	
+	public int counter = 1;
+	public Workbook workbook;
+	public Sheet sheet;
 	
 	@BeforeTest
     public void login()
     {
         wlogin.defaultlogin(prop.getProperty("username"), prop.getProperty("password"), prop.getProperty("selectView"));
+		this.workbook = new XSSFWorkbook();
+        this.sheet = workbook.createSheet("TaskServicesNO");
+
+        // Create a header row
+        Row headerRow = sheet.createRow(0);
+        headerRow.createCell(0).setCellValue("Task name");
+        headerRow.createCell(1).setCellValue("Service No");
+        headerRow.createCell(2).setCellValue("Bill TOs");
+        
     }
+
+
+	
+	@AfterTest
+	public void donetest(){
+		FileOutputStream outputStream;
+		try {
+			outputStream = new FileOutputStream(AppConstants.write_DATA_SV_SHEET_PATH);
+			this.workbook.write(outputStream);
+	        this.workbook.close();
+	        outputStream.close();
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+	}
 	
 	@Test
 	public void OpenInvoiceMenuTest() throws InterruptedException
@@ -34,34 +64,38 @@ public class InvoiceTest extends BasePage{
 		Assert.assertEquals(actulTitle, "Invoices");
 	}
 	
-	 @DataProvider
-		public Object[][] clickonTaskName() {
-			return new Object[][] {
-				
-				{"light issue1","Bill Unit .BL121","1" },
-				{"fridge not working","Bill Damage Waiver","2"},
-			};
-		}
-	  
-	@Test(dataProvider = "clickonTaskName")
-	public void getInvoiceTasknameTest(String invoicetaskname,String billto,String amount) throws InterruptedException
+//	 @DataProvider
+//		public Object[][] clickonTaskName() {
+//			return new Object[][] {
+//				
+//				{"light issue1","Bill Unit .BL121","1" },
+//				{"fridge not working","Bill Damage Waiver","2"},
+//			};
+//		}
+//	  
+	@Test(dataProvider = "gettaksdata",dataProviderClass=TaskTest.class)
+	public void getInvoiceTasknameTest(String taskname, String unitname, String vendorname, String description, String billto,
+			String amount) throws InterruptedException
 	{
 	
 		invoicePage.selectStatus("Waiting Tech", 2);
-		
-		invoicePage.selectInvoiceTask(invoicetaskname);
+		Thread.sleep(4000);
+		invoicePage.selectInvoiceTask(taskname);
 		
 		invoicePage.openInvoiceTo();
 		//By billTo=By.xpath("//input[contains(@value,'00')or contains(@value,'$')]/parent::span/preceding-sibling::span/select[@name='exp_notes']");
 		
 		//invoicePage.openInvoiceTo();
-		invoicePage.selectBillTo(billto,amount);
-		
+		invoicePage.selectBillTo(billto, amount);
 		invoicePage.sumOfBillToAmount();
+		invoicePage.writeJobNumber(sheet,counter,billto);
+		   System.out.println(counter);
+		counter++;
+		
 		invoicePage.vendorAmount();
-		Thread.sleep(5000);
+		Thread.sleep(6000);
 		invoicePage.ClickApprove();
-		Thread.sleep(5000);
+		Thread.sleep(6000);
 		invoicePage.closeBilltoScrn();
 	}
 	 

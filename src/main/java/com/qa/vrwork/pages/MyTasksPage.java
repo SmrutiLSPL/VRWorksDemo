@@ -1,13 +1,21 @@
 package com.qa.vrwork.pages;
 
 import java.time.Duration;
-import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.HashMap;
 import com.qa.vrwork.utils.VRUtils;
 
 public class MyTasksPage {
@@ -16,7 +24,7 @@ public class MyTasksPage {
 	//private ElementUtil eleUtil;
 	private VRUtils vrutil;
 	WebDriverWait wait;
-
+	
 	// 1. private By Locators - page locators
 	By MaintenanceMenu = By.xpath("//a[@id='mainmenua8 ']");
 	By sideMenu = By.xpath("//ul[contains(@class,'contentmenu')]//li");
@@ -47,7 +55,7 @@ public class MyTasksPage {
 		{
 			System.out.println("There is no task,Please create task ");
 		}
-		vrutil.clickElementWhendrpReady( task,10);
+		vrutil.clickElementWhendrpReady(task,10,2);
 
 	}
 	
@@ -60,8 +68,10 @@ public class MyTasksPage {
 	}
 	public void doclickonMarkComplete()
 	{
-		vrutil.clickElementWhendrpReady(markComplete,10);
+		vrutil.clickElementWhendrpReady(markComplete,10,2);
 	}
+	
+	
 	public void doclickClose()
 	{
 		vrutil.clickElementWhendrpReady(closeIcon,10);

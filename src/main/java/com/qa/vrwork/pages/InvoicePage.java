@@ -1,8 +1,16 @@
 package com.qa.vrwork.pages;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -30,6 +38,7 @@ public class InvoicePage {
 	By amountEnter = By.xpath("//div[contains(@class,'extrabillto_single')]//input[@name='exp_amount']");
 	By close = By.cssSelector("button.notdisabled");
 	By Approved = By.cssSelector(".invoicestatus.approved");
+	
 	// 2. public page Constructor
 
 	public InvoicePage(WebDriver driver) {
@@ -39,6 +48,44 @@ public class InvoicePage {
 	}
 
 	// 3. public page actoin/Methos
+	
+	public void writeJobNumber(Sheet sheet,int counter,String billto)
+	{
+		// Find the input box element
+        WebElement inputBox = driver.findElement(By.xpath("//input[@class='invoicenumber form-control my-form-control']")); // Replace with the actual element locator
+        WebElement TasknameBox = driver.findElement(By.xpath("//div[@class='titleoftask']")); // Replace with the actual element locator
+        
+        
+        // Get the input box value
+        String inputValue = inputBox.getAttribute("value");
+        String name = TasknameBox.getText();
+      
+     // Create a list of HashMaps to store the data
+        List<HashMap<String, String>> dataList = new ArrayList<>();
+        
+        // Add data to the list (you can add more data sets as needed)
+        HashMap<String, String> data1 = new HashMap<>();
+        data1.put("Service No", inputValue);
+        data1.put("Task name", name);
+ 
+        dataList.add(data1);
+
+        // Create data rows for each data set
+		for (HashMap<String, String> data : dataList) {
+		    Row dataRow = sheet.createRow(counter);
+		    dataRow.createCell(0).setCellValue(data.get("Task name"));
+		    dataRow.createCell(1).setCellValue(data.get("Service No"));
+		    dataRow.createCell(2).setCellValue(billto);
+		    System.out.println(counter);
+		    
+		}
+
+		// Save the Excel file
+		
+
+		System.out.println("Add data  to Excel successfully.");
+        }
+	
 	public void clickmainmenu() throws InterruptedException {
 		vrutil.doClick(MaintenanceMenu);
 
@@ -56,17 +103,18 @@ public class InvoicePage {
 
 	// not appied
 	public void selectInvoiceTask(String TaskName) {
-		List<WebElement> invoiceTaskName = driver.findElements(
-				By.xpath("//table[contains(@class,'invoicetable')]//td[contains(@class,'searchbytaskname')]"));
-		for (WebElement e : invoiceTaskName) {
-			String taskName = e.getText();
-			System.out.println(taskName);
-			if (taskName.equals(TaskName)) {
-				e.click();
-				break;
-			}
-
-		}
+//		List<WebElement> invoiceTaskName = driver.findElements(
+//				By.xpath("//table[contains(@class,'invoicetable')]//td[contains(@class,'searchbytaskname')]"));
+//		for (WebElement e : invoiceTaskName) {
+//			String taskName = e.getText();
+//			System.out.println(taskName);
+//			if (taskName.equals(TaskName)) {
+//				e.click();
+//				break;
+//			}
+//
+//		}
+		vrutil.getElement(By.xpath("//td[contains(text(),'"+TaskName+"')]/parent::tr")).click();
 	}
 
 	public void openInvoiceTo() {
@@ -86,9 +134,11 @@ public class InvoicePage {
 
 		JavascriptExecutor jse = (JavascriptExecutor) driver;
 		jse.executeScript("$('.extrabillto_single').last().find('[name=\"exp_notes\"]:contains(Bill Unit)').val('"
-				+ BillValue + "');");
-		jse.executeScript("$('.extrabillto_single').last().find('[name=\"exp_amount\"]').val('" + amount + "');");
-
+				+ BillValue + "').blur();");
+		Thread.sleep(5000);
+	//	jse.executeScript("select[name='acc_number'] >option[value='"+valueNo+"']).blur();");
+		jse.executeScript("$('.extrabillto_single').last().find('[name=\"exp_amount\"]').val('" + amount + "').blur();");
+		Thread.sleep(5000);
 	}
 
 	public void sumOfBillToAmount() {
@@ -109,7 +159,7 @@ public class InvoicePage {
 		WebElement totalamount = driver
 				.findElement(By.xpath("//input[@class='invoiceamount my-form-control form-control']"));
 		totalamount.clear();
-		Thread.sleep(5000);
+		Thread.sleep(10000);
 		totalamount.sendKeys(sum.toString());
 		// VRUtils vrUtils = new VRUtils(driver);
 		vrutil.executeJS("document.querySelector('.invoiceamount').blur()");
@@ -122,7 +172,7 @@ public class InvoicePage {
 	}
 
 	public void ClickApprove() throws InterruptedException {
-
+	
 		String javascript = "document.querySelector('.invoicestatus.approved').click()";
 		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
 		jsExecutor.executeScript(javascript);

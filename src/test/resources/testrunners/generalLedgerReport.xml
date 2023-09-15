@@ -1,37 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="VRWork App Test Regression Suite" thread-count="5" verbose="5" >
-	
-	<listeners>
-		<listener class-name="com.qa.vrwork.listeners.ExtentReportListener" />
-		<listener class-name="com.qa.vrwork.listeners.TestAllureListener" />
-	</listeners>
+<suite name="TestNG generalLedgerReport Suite">
 
-	
-	<test name="TaskTest Page Test" >
+	<test name="TaskPage Test">
 		<classes>
 			<class name="com.qa.vrwork.tests.TaskTest" />
 		</classes>
 	</test>
-	
-	 <test name="MyTaskCompelete Page Test">
+	<test name="MyTaskCompelete Test">
 		<classes>
 			<class name="com.qa.vrwork.tests.MyTaskCompeleteTest" />
 		</classes>
 	</test>
-	 
-	 <test name="InvoiceBill">
+	<test name="Invoice Test">
 		<classes>
 			<class name="com.qa.vrwork.tests.InvoiceTest" />
 		</classes>
 	</test>
-		 <test name="InvoicePostBill">
+
+	<test name="InvoicePostBill Test">
 		<classes>
 			<class name="com.qa.vrwork.tests.InvoicePostBillTest" />
 		</classes>
 	</test>
-	<test name="ProcessService">
+	<test name="ProcessServiceOrders Test">
 		<classes>
 			<class name="com.qa.vrwork.tests.ProcessServiceOrdersTest" />
 		</classes>
@@ -41,4 +34,4 @@
 			<class name="com.qa.vrwork.tests.GeneralLedgerReportTest" />
 		</classes>
 	</test>
-</suite>	
+</suite>
